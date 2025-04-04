@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>काव्यपथ - हिंदी कविताओं का डिजिटल संसार</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e67e22;
+            --accent: #8b4513;
+            --light-bg: #f8f9fa;
+            --light-text: #333333;
+            --dark-bg: #121212;
+            --dark-text: #f0f0f0;
+            --card-bg: #ffffff;
+            --card-dark: #1e1e1e;
+            --glow-color: rgba(230, 126, 34, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background 0.4s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Animated Background with Floating Particles */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--secondary);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: floatParticle linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20vw);
+                opacity: 0;
+            }
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .dark-mode .animated-bg {
+            opacity: 0.05;
+        }
+
+        /* Enhanced Loading Spinner with Morphing Effect */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--light-bg);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .loader-spinner {
+            width: 70px;
+            height: 70px;
+            border: 5px solid rgba(139, 69, 19, 0.2);
+            border-radius: 50% 30% 70% 40%;
+            border-top-color: var(--accent);
+            animation: spin 1.2s linear infinite, morph 8s ease-in-out infinite;
+            position: relative;
+        }
+
+        .loader-spinner::before {
+            content: '✍';
+            position: absolute;
+            font-size: 24px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        .loader-text {
+            margin-top: 20px;
+            font-family: 'Noto Sans Devanagari';
+            font-size: 1.2rem;
+            animation: pulse 2s infinite, glitch 5s infinite alternate;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulse { 
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; } 
+        }
+        @keyframes morph {
+            0%, 100% { border-radius: 50% 30% 70% 40%; }
+            25% { border-radius: 60% 40% 30% 70%; }
+            50% { border-radius: 30% 60% 70% 40%; }
+            75% { border-radius: 40% 30% 60% 70%; }
+        }
+        @keyframes glitch {
+            0% { text-shadow: 0 0 rgba(255,0,0,0.3), 0 0 rgba(0,255,0,0.3); }
+            2%, 64% { text-shadow: 2px 0 rgba(255,0,0,0.3), -2px 0 rgba(0,255,0,0.3); }
+            4%, 60% { text-shadow: 3px 0 rgba(255,0,0,0.3), -1px 0 rgba(0,255,0,0.3); }
+            62% { text-shadow: -3px 0 rgba(255,0,0,0.3), 1px 0 rgba(0,255,0,0.3); }
+        }
+
+        /* Enhanced Header with Glassmorphism */
+        header {
+            padding: 1rem 2rem;
+            background: rgba(44, 62, 80, 0.7);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            color: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .dark-mode header {
+            background: rgba(30, 30, 30, 0.7);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 10px var(--glow-color);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px var(--glow-color); }
+            to { text-shadow: 0 0 15px var(--glow-color), 0 0 20px rgba(230, 126, 34, 0.4); }
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            text-shadow: 0 0 5px rgba(255,255,255,0.7);
+        }
+
+        /* Enhanced Theme Toggle with Glow Effect */
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.2);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            border: none;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: white;
+            transform: translateX(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        .dark-mode .theme-toggle::before {
+            transform: translateX(30px);
+            box-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .theme-icon {
+            font-size: 16px;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .sun-icon {
+            margin-right: auto;
+            color: #f39c12;
+            filter: drop-shadow(0 0 3px #f39c12);
+        }
+
+        .moon-icon {
+            margin-left: auto;
+            color: #f0f0f0;
+            filter: drop-shadow(0 0 3px #f0f0f0);
+        }
+        
+
+        /* Enhanced Hero Section with Ink Drops */
+        .hero {
+            padding: 6rem 1rem;
+            background: linear-gradient(135deg, var(--primary), #4ca1af);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://learnodo-newtonic.com/wp-content/uploads/2019/03/Famous-Indian-Poets-Featured.webp') center/cover;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+            animation: fadeInUp 1s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(90deg, #fff, #e67e22);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        /* Enhanced Ink Drops Animation */
+        .ink-drop {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: ink-animation 8s infinite;
+            z-index: 0;
+            filter: blur(1px);
+        }
+
+        .ink-drop:nth-child(odd) {
+            background: rgba(230, 126, 34, 0.1);
+        }
+
+        @keyframes ink-animation {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(5) rotate(180deg); opacity: 0.5; }
+            100% { transform: scale(10) rotate(360deg); opacity: 0; }
+        }
+
+        /* Enhanced Search Bar with Glassmorphism */
+        .search-bar {
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+            animation: fadeInUp 1s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15), 0 0 0 2px var(--secondary);
+            transform: scale(1.02);
+        }
+
+        .dark-mode .search-bar input {
+            background: rgba(30,30,30,0.7);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Enhanced Categories with 3D Tilt Effect */
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin: 2rem 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            opacity: 0;
+        }
+
+        .category-tag {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            background: linear-gradient(to bottom right, #f97316, #fbbf24);
+            /* orange to yellow */
+            color: white;
+            transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+        }
+
+        /* Hover with pop + spin + vibrant background */
+        .category-tag:hover {
+            transform: scale(1.1) rotate(-3deg);
+            background: linear-gradient(to bottom right, #fb923c, #facc15);
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4);
+        }
+
+        /* Active tag style */
+        .category-tag.active {
+            background: linear-gradient(to bottom right, #1d4ed8, #3b82f6);
+            /* blue gradient */
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* Optional dark mode styling */
+        body.dark .category-tag {
+            background: linear-gradient(to bottom right, #374151, #1f2937);
+            color: #e5e7eb;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05);
+        }
+
+        body.dark .category-tag:hover {
+            background: linear-gradient(to bottom right, #2563eb, #1e40af);
+            box-shadow: 0 8px 20px rgba(147, 197, 253, 0.4);
+        }
+
+        body.dark .category-tag.active {
+            background: linear-gradient(to bottom right, #3b82f6, #60a5fa);
+            box-shadow: 0 6px 18px rgba(147, 197, 253, 0.5);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) translateX(-50%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) translateX(-50%);
+            }
+        }
+
+
+        /* Hover effect with pop and slight rotation */
+        .category-tag:hover {
+            transform: translateY(-6px) rotate(-2deg);
+            box-shadow: 0 10px 25px rgba(230, 126, 34, 0.45);
+            background: linear-gradient(to right, #e67e22, #f39c12);
+        }
+
+        /* Active state with glow effect */
+        .category-tag.active {
+            background: var(--primary);
+            box-shadow: 0 6px 16px rgba(52, 152, 219, 0.5);
+            transform: scale(1.05);
+        }
+
+        /* Poem Cards */
+        .poem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            
+            gap: 2rem;
+            padding: 3rem;
+            position: relative;
+        }
+
+        /* ----- Glow container behind each card ----- */
+        .poem-card::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 130%;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.25), transparent 70%);
+            filter: blur(40px);
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease, background 0.4s ease;
+            pointer-events: none;
+        }
+
+        /* Dark mode version (class-based) */
+        .dark-mode .poem-card::before {
+            background: radial-gradient(circle, rgba(156, 163, 175, 0.2), transparent 70%);
+        }
+
+        /* OR for system dark mode (if not using class) */
+        @media (prefers-color-scheme: dark) {
+            .poem-card::before {
+                background: radial-gradient(circle, rgba(156, 163, 175, 0.2), transparent 70%);
+            }
+        }
+
+
+        .poem-card {
+            position: relative;
+            z-index: 1;
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+        }
+
+        .poem-card:hover {
+            transform: scale(1.03) rotate(-1deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .poem-card:hover::before {
+            opacity: 1;
+        }
+
+        .dark-mode .poem-card {
+            background: linear-gradient(to top right, #1f2937, #111827);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* ---- Rest remains almost same with minor tweaks ---- */
+        .poem-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 1rem;
+            margin-bottom: 1.2rem;
+            transition: transform 0.4s ease;
+        }
+
+        .poem-card:hover .poem-image {
+            transform: scale(1.05);
+        }
+
+        .poem-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .dark-mode .poem-title {
+            color: #facc15;
+        }
+
+        .poem-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        .poem-card:hover .poem-title::after {
+            width: 100%;
+        }
+
+        .poem-author {
+            font-style: italic;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .poem-content {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            white-space: pre-line;
+            position: relative;
+        }
+
+        .poem-content::first-letter {
+            font-size: 2.5rem;
+            float: left;
+            line-height: 1;
+            margin-right: 8px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .poem-actions {
+            display: flex;
+            gap: 1.2rem;
+            border-top: 1px dashed rgba(0, 0, 0, 0.1);
+            padding-top: 1.5rem;
+        }
+
+        .dark-mode .poem-actions {
+            border-top-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            color: var(--light-text);
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+        }
+
+        .dark-mode .action-btn {
+            color: var(--dark-text);
+        }
+
+        .action-btn:hover {
+            background: rgba(249, 115, 22, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+        }
+
+        .action-btn.liked {
+            color: var(--secondary);
+        }
+
+        /* General text color fix for dark mode */
+        .dark-mode .poem-card {
+            color: #e5e7eb;
+            /* Tailwind's gray-200 — soft white */
+        }
+
+        /* Poem title in dark mode */
+        .dark-mode .poem-title {
+            color: #fbbf24;
+            /* warm amber (optional) or use white: #ffffff */
+        }
+
+        /* Author name */
+        .dark-mode .poem-author {
+            color: #a1a1aa;
+            /* Tailwind's gray-400 */
+        }
+
+        /* Poem content */
+        .dark-mode .poem-content {
+            color: #d1d5db;
+            /* Tailwind's gray-300 */
+        }
+
+        /* First letter in dark mode content */
+        .dark-mode .poem-content::first-letter {
+            color: #fbbf24;
+            /* highlight in amber (or choose another accent) */
+        }
+
+        /* Buttons text */
+        .dark-mode .action-btn {
+            color: #e5e7eb;
+        }
+
+        /* Liked button in dark mode */
+        .dark-mode .action-btn.liked {
+            color: var(--secondary);
+            /* or keep same for accent consistency */
+        }
+        /* Enhanced Footer with Gradient Border */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary), #4ca1af);
+            color: white;
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent), var(--secondary));
+            animation: rainbow 5s linear infinite;
+        }
+
+        .dark-mode footer {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        }
+
+        .footer-quote {
+            font-family: 'Noto Sans Devanagari';
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            max-width: 800px;
+            transform: translateZ(10px);
+        }
+
+        .footer-quote::before,
+        .footer-quote::after {
+            content: '"';
+            font-size: 2rem;
+            color: var(--secondary);
+            position: absolute;
+            filter: drop-shadow(0 0 3px rgba(230, 126, 34, 0.5));
+        }
+
+        .footer-quote::before {
+            top: -15px;
+            left: -25px;
+        }
+
+        .footer-quote::after {
+            bottom: -25px;
+            right: -25px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            transform: translateY(-3px);
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Enhanced Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px) rotateX(10deg); }
+            to { opacity: 1; transform: translateY(0) rotateX(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        /* Enhanced Revolving Text with 3D Depth */
+        .revolving-container {
+            position: fixed;
+            top: 50%;
+            right: 30px;
+            width: 150px;
+            height: 150px;
+            perspective: 1000px;
+            z-index: 100;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .revolving-text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: revolve 20s linear infinite;
+            font-family: 'Noto Sans Devanagari';
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .revolving-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backface-visibility: hidden;
+            font-size: 1.2rem;
+            text-align: center;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 10px;
+            border: 1px solid rgba(230, 126, 34, 0.2);
+            transform-origin: center;
+            transition: all 0.5s;
+        }
+
+        .revolving-face:hover {
+            transform: scale(1.1) translateZ(20px);
+            box-shadow: 0 10px 25px rgba(230, 126, 34, 0.3);
+            background: rgba(255,255,255,0.25);
+        }
+
+        .dark-mode .revolving-face {
+            color: #e67e22;
+            background: rgba(30,30,30,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(230, 126, 34, 0.3);
+        }
+
+        @keyframes revolve {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        /* New: Floating Cursor Effect */
+        .floating-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(230, 126, 34, 0.5);
+            pointer-events: none;
+            z-index: 999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+            filter: blur(0.5px);
+            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+        }
+
+        .floating-cursor.active {
+            width: 60px;
+            height: 60px;
+            background: rgba(230, 126, 34, 0.2);
+        }
+
+        /* New: Scroll Indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            z-index: 1000;
+            transition: width 0.1s;
+        }
+
+        /* Enhanced Responsive Design */
+        @media (max-width: 1200px) {
+            .revolving-container {
+                width: 120px;
+                height: 120px;
+                right: 20px;
+            }
+            .revolving-face {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .revolving-container {
+                position: relative;
+                top: auto;
+                right: auto;
+                transform: none;
+                width: 100%;
+                height: 100px;
+                margin: 2rem auto;
+                perspective: 800px;
+            }
+            
+            .revolving-text {
+                position: relative;
+                margin: 0 auto;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .hero {
+                padding: 4rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .poem-grid {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+            
+            .footer-quote {
+                font-size: 1.2rem;
+            }
+
+            .floating-cursor {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .revolving-container {
+                height: 80px;
+            }
+            .revolving-face {
+                font-size: 0.9rem;
+            }
+        }
+        .shloka-section {
+            padding: 5rem 2rem;
+            background: rgba(255, 255, 255, 0.85);
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode .shloka-section {
+            background: rgba(30, 30, 30, 0.85);
+        }
+
+        .shloka-container {
+            max-width: 800px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .shloka-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode .shloka-card {
+            background: var(--card-dark);
+        }
+
+        .shloka-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+
+        .shloka-text {
+            font-family: 'Noto Sans Devanagari';
+            font-size: 1.5rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--light-text);
+            text-align: center;
+        }
+
+        .dark-mode .shloka-text {
+            color: var(--dark-text);
+        }
+
+        .shloka-meaning {
+            font-style: italic;
+            padding: 1.5rem;
+            background: rgba(230, 126, 34, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+            color: var(--light-text);
+        }
+
+        .dark-mode .shloka-meaning {
+            color: var(--dark-text);
+            background: rgba(230, 126, 34, 0.2);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Floating Cursor Effect -->
+    <div class="floating-cursor" id="floatingCursor"></div>
+
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Animated Background with Particles -->
+    <div class="animated-bg"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Loading Spinner -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">कविता का संसार लोड हो रहा है...</div>
+    </div>
+
+    <header class="floating-nav">
+        <div class="logo">
+          <span class="logo-icon">✒</span>
+          <span>काव्यपथ</span>
+        </div>
+      
+        <nav>
+          <ul class="nav-list">
+            <li>
+              <a href="/" class="floating-nav-item">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                </svg>
+                <span>होम</span>
+              </a>
+            </li>
+            <li>
+              <a href="/kavi" class="floating-nav-item">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5z" />
+                </svg>
+                <span>कवि</span>
+              </a>
+            </li>
+            <li>
+              <a href="/categories" class="floating-nav-item">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path d="M4 6h16v2H4zM4 10h16v2H4zM4 14h16v2H4z" />
+                </svg>
+                <span>श्रेणियाँ</span>
+              </a>
+            </li>
+            <li>
+              <a href="/rachna" class="floating-nav-item">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
+                </svg>
+                <span>रचनाएँ</span>
+              </a>
+            </li>
+            <li>
+              <a href="/competition" class="floating-nav-item">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    d="M21 6.5a2.5 2.5 0 00-2.5-2.5h-13A2.5 2.5 0 003 6.5v11a2.5 2.5 0 002.5 2.5h13a2.5 2.5 0 002.5-2.5v-11zM5.5 5h13c.8 0 1.5.7 1.5 1.5v.7l-8 5.1-8-5.1v-.7C4 5.7 4.7 5 5.5 5zm13 14h-13c-.8 0-1.5-.7-1.5-1.5V8.2l7.3 4.6c.2.1.5.2.7.2s.5-.1.7-.2l7.3-4.6v9.3c0 .8-.7 1.5-1.5 1.5z" />
+                </svg>
+                <span>प्रतियोगिता</span>
+              </a>
+            </li>
+            <li>
+              <a href="/about" class="floating-nav-item">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                </svg>
+                <span>हमारे बारे में</span>
+              </a>
+            </li>
+            <li>
+              <button class="theme-toggle">
+                <span class="theme-icon sun-icon">☀</span>
+                <span class="theme-icon moon-icon">🌙</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+    <main>
+        <!-- Hero Section with Ink Drops -->
+        <section class="hero">
+            <!-- Ink Drop Animations -->
+            <div class="ink-drop" style="top:20%;left:10%;width:50px;height:50px;animation-delay:0s"></div>
+            <div class="ink-drop" style="top:60%;left:80%;width:80px;height:80px;animation-delay:2s"></div>
+            <div class="ink-drop" style="top:30%;left:70%;width:60px;height:60px;animation-delay:4s"></div>
+            
+            <div class="hero-content">
+                <h1>हिंदी कविताओं का डिजिटल संसार</h1>
+                <p>अपनी भावनाओं को शब्दों में ढालें और दुनिया के साथ साझा करें</p>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="कविता, कवि, या श्रेणी खोजें...">
+                </div>
+                
+                <div class="categories">
+                    <div class="category-tag active" data-category="all">सभी</div>
+                    <div class="category-tag" data-category="prem">प्रेम</div>
+                    <div class="category-tag" data-category="virah">विरह</div>
+                    <div class="category-tag" data-category="desh">देशभक्ति</div>
+                    <div class="category-tag" data-category="prakriti">प्रकृति</div>
+                    <div class="category-tag" data-category="jeevan">जीवन</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Poem Grid -->
+        <section class="poem-grid" id="poem-container">
+            <!-- Poem 1 - Prem -->
+            <div class="poem-card" data-category="prem">
+                <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Indian couple in nature" class="poem-image">
+                <h3 class="poem-title">तुम आ जाओ</h3>
+                <div class="poem-author">- राहुल शर्मा</div>
+                <div class="poem-content">
+                    तुम आ जाओ बस इतनी सी बात है,
+                    रात की नींद और दिन का चैन जाए।
+                    
+                    तुम्हारे बिना ये घड़ियाँ काटना,
+                    मेरे लिए अब कोई आसान नहीं।
+                    
+                    तुम्हारी याद की हर लहर में,
+                    डूब जाता है मेरा हर पल।
+                    तुम आ जाओ, बस इतनी सी बात है।
+                </div>
+                <div class="poem-actions">
+                    <button class="action-btn like-btn">❤ <span>142</span></button>
+                    <button class="action-btn">💬 टिप्पणी</button>
+                    <button class="action-btn">↗ साझा करें</button>
+                </div>
+            </div>
+
+            <!-- Poem 2 - Desh -->
+            <div class="poem-card" data-category="desh">
+                <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Indian flag at Red Fort" class="poem-image">
+                <h3 class="poem-title">मेरा देश</h3>
+                <div class="poem-author">- प्रिया पाटिल</div>
+                <div class="poem-content">
+                    यह धरती है वीरों की, गाथाओं से भरी,
+                    हर कोना गवाह है, शहीदों की कुर्बानी की।
+                    गंगा-यमुना का पावन संगम,
+                    हिमालय की ऊँची चोटियाँ,
+                    यही तो है मेरा भारत,
+                    जिस पर मुझे नाज़ है।
+                    
+                    तिरंगा लहराता रहे,
+                    यही दुआ है मेरी,
+                    मेरे देश की शान बनी रहे,
+                    हर भारतीय की यही अभिलाषा है।
+                </div>
+                <div class="poem-actions">
+                    <button class="action-btn like-btn">❤ <span>98</span></button>
+                    <button class="action-btn">💬 टिप्पणी</button>
+                    <button class="action-btn">↗ साझा करें</button>
+                </div>
+            </div>
+    
+            <!-- Poem 3 - Prakriti -->
+            <div class="poem-card" data-category="prakriti">
+                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sunrise over mountains" class="poem-image">
+                <h3 class="poem-title">प्रकृति का संगीत</h3>
+                <div class="poem-author">- अरुण सिंह</div>
+                <div class="poem-content">
+                    पत्तों की सरसराहट,
+                    नदियों का कलकल स्वर,
+                    पक्षियों का कलरव,
+                    यही तो है प्रकृति का संगीत।
+                    
+                    सूरज की पहली किरण,
+                    ओस की बूँदों का नाच,
+                    हवा का स्पर्श,
+                    यही तो है जीवन का आनंद।
+                    
+                    प्रकृति के इस संगीत में,
+                    खो जाओ तुम भी,
+                    पाओगे शांति का सागर,
+                    और जीवन का सच्चा सुख।
+                </div>
+                <div class="poem-actions">
+                    <button class="action-btn like-btn">❤ <span>76</span></button>
+                    <button class="action-btn">💬 टिप्पणी</button>
+                    <button class="action-btn">↗ साझा करें</button>
+                </div>
+            </div>
+    
+            <!-- Poem 4 - Virah -->
+            <div class="poem-card" data-category="virah">
+                <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Lonely woman looking at distance" class="poem-image">
+                <h3 class="poem-title">विरह</h3>
+                <div class="poem-author">- मीरा देवी</div>
+                <div class="poem-content">
+                    तुम्हारी यादों के सहारे,
+                    गुज़ार रही हूँ ये लम्हें,
+                    हर पल तड़पती है आत्मा,
+                    तुम्हारे दर्शन को।
+                    
+                    चाँदनी रातें याद दिलाती हैं,
+                    उन पलों की जब तुम साथ थे,
+                    अब तो बस यादें ही हैं,
+                    जो दिल को छू जाती हैं।
+                    
+                    कब मिलोगे फिर से,
+                    यही प्रश्न है मेरा,
+                    विरह की इस अग्नि में,
+                    जल रहा है ये हृदय मेरा।
+                </div>
+                <div class="poem-actions">
+                    <button class="action-btn like-btn">❤ <span>112</span></button>
+                    <button class="action-btn">💬 टिप्पणी</button>
+                    <button class="action-btn">↗ साझा करें</button>
+                </div>
+            </div>
+    
+            <!-- Poem 5 - Jeevan -->
+            <div class="poem-card" data-category="jeevan">
+                <img src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Path through forest" class="poem-image">
+                <h3 class="poem-title">जीवन पथ</h3>
+                <div class="poem-author">- राजीव मिश्रा</div>
+                <div class="poem-content">
+                    जीवन एक सफर है,
+                    कभी आसान तो कभी मुश्किल,
+                    हर मोड़ पर नया सबक,
+                    हर कदम पर नई चुनौती।
+                    
+                    गिर कर संभलना सिखाता है,
+                    हार कर जीतना सिखाता है,
+                    यह जीवन हमें वही सिखाता है,
+                    जो हम सीखने को तैयार हैं।
+                    
+                    इस पथ पर चलते रहो,
+                    डर कर मत रुको,
+                    क्योंकि मंजिल वहीं मिलती है,
+                    जो चलते रहने का साहस रखते हैं।
+                </div>
+                <div class="poem-actions">
+                    <button class="action-btn like-btn">❤ <span>88</span></button>
+                    <button class="action-btn">💬 टिप्पणी</button>
+                    <button class="action-btn">↗ साझा करें</button>
+                </div>
+            </div>
+    
+            <!-- Poem 6 - Prem -->
+            <div class="poem-card" data-category="prem">
+                <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Couple holding hands at sunset" class="poem-image">
+                <h3 class="poem-title">प्यार की परिभाषा</h3>
+                <div class="poem-author">- नीतू सिंह</div>
+                <div class="poem-content">
+                    प्यार को शब्दों में बाँधना,
+                    समंदर को गागर में भरने जैसा है,
+                    यह तो एक एहसास है,
+                    जो दिल से दिल तक जाता है।
+                    
+                    तुम्हारी मुस्कान मेरी खुशी,
+                    तुम्हारा दुख मेरा दर्द,
+                    यही तो है प्यार की परिभाषा,
+                    जहाँ दो दिल एक हो जाते हैं।
+                    
+                    ना कोई शर्त, ना कोई बंधन,
+                    बस एक सच्चा साथ,
+                    यही तो है प्यार की असली पहचान,
+                    जो हमेशा बना रहता है।
+                </div>
+                <div class="poem-actions">
+                    <button class="action-btn like-btn">❤ <span>134</span></button>
+                    <button class="action-btn">💬 टिप्पणी</button>
+                    <button class="action-btn">↗ साझा करें</button>
+                </div>
+            </div>
+        </section>
+        <section class="poem-grid" id="poem-container">
+            <!-- All poem cards remain the same -->
+            <!-- ... -->
+        </section>
+
+        <!-- New Shloka Section -->
+        <section class="shloka-section">
+            <div class="shloka-container">
+                <!-- Shloka 1 -->
+                <div class="shloka-card">
+                    <div class="shloka-text">
+                        चक्षुरध्ययनम्,<br>
+                        वचनं श्रवणम्,<br>
+                        सर्वमेककृतम्
+                    </div>
+                    <div class="shloka-meaning">
+                        Meaning: "देखना अध्ययन है, सुनना श्रवण है, सब कुछ एकीकृत है"
+                    </div>
+                </div>
+
+                <!-- Shloka 2 -->
+                <div class="shloka-card">
+                    <div class="shloka-text">
+                        न च प्राण संज्ञो न वै पञ्चवायुः<br>
+                        न वा सप्तधातुनर् वा पञ्चकोशः<br>
+                        न वाक्पिाणपादौ न चोपस्थपायू<br>
+                        विचदानन्द रूपः शिवोऽहम् शिवोऽहम्
+                    </div>
+                    <div class="shloka-meaning">
+                        Meaning: यह श्लोक बताता है कि मैं न तो प्राण (जीवन शक्ति) हूँ, न ही शरीर में बहने वाली पाँच प्रकार की वायु। न मैं शरीर के सात मूल तत्वों (धातुओं) से बना हूँ और न ही पाँच आवरणों (पंचकोश) से घिरा हूँ। न मैं वाणी (बोलने की शक्ति) हूँ, न मेरे हाथ-पाँव हैं, और न ही मल-मूत्र त्याग की प्रक्रिया से मेरा कोई संबंध है। मैं शुद्ध आत्मा हूँ, जो इन सबसे परे है, और मैं ही शिव हूँ।
+                    </div>
+                </div>
+
+                <!-- Shloka 3 -->
+                <div class="shloka-card">
+                    <div class="shloka-text">
+                        संग्रहकस्य यन्त्र,<br>
+                        वर्तमानस्य गति,<br>
+                        आधारस्य शिल्प
+                    </div>
+                    <div class="shloka-meaning">
+                        Meaning: "संग्रहकर्ता की मशीन, वर्तमान का पथ, आधार का शिल्प"
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Revolving Text Effect -->
+        <div class="revolving-container">
+            <div class="revolving-text">
+                <div class="revolving-face" style="transform: rotateY(0deg) translateZ(75px);">कविता हृदय की भाषा है</div>
+                <div class="revolving-face" style="transform: rotateY(60deg) translateZ(75px);">शब्दों में जादू है</div>
+                <div class="revolving-face" style="transform: rotateY(120deg) translateZ(75px);">भावनाओं का संसार</div>
+                <div class="revolving-face" style="transform: rotateY(180deg) translateZ(75px);">काव्यपथ पर स्वागत है</div>
+                <div class="revolving-face" style="transform: rotateY(240deg) translateZ(75px);">अपनी रचनाएँ साझा करें</div>
+                <div class="revolving-face" style="transform: rotateY(300deg) translateZ(75px);">कविता जीवन है</div>
+            </div>
+        </div>
+
+    
+        <!-- Revolving Text Effect -->
+        <div class="revolving-container">
+            <div class="revolving-text">
+                <div class="revolving-face" style="transform: rotateY(0deg) translateZ(75px);">कविता हृदय की भाषा है</div>
+                <div class="revolving-face" style="transform: rotateY(60deg) translateZ(75px);">शब्दों में जादू है</div>
+                <div class="revolving-face" style="transform: rotateY(120deg) translateZ(75px);">भावनाओं का संसार</div>
+                <div class="revolving-face" style="transform: rotateY(180deg) translateZ(75px);">काव्यपथ पर स्वागत है</div>
+                <div class="revolving-face" style="transform: rotateY(240deg) translateZ(75px);">अपनी रचनाएँ साझा करें</div>
+                <div class="revolving-face" style="transform: rotateY(300deg) translateZ(75px);">कविता जीवन है</div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-quote">
+            कविता वह दर्पण है जिसमें प्रकृति अपने रूपों को देखती है। - विलियम वर्ड्सवर्थ
+        </div>
+        <div class="footer-links">
+            <a href="#">हमारे बारे में</a>
+            <a href="#">संपर्क करें</a>
+            <a href="#">सहयोग करें</a>
+            <a href="#">नियम एवं शर्तें</a>
+            <a href="#">गोपनीयता नीति</a>
+        </div>
+        <div>© 2023 काव्यपथ - सर्वाधिकार सुरक्षित</div>
+    </footer>
+    
+    <script>
+        // Enhanced JavaScript with Modern Features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate loading
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                    animateElements();
+                }, 500);
+            }, 2000);
+    
+            // Theme Toggle
+            const themeToggle = document.querySelector('.theme-toggle');
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            });
+    
+            // Check for saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+    
+            // Create particles
+            createParticles();
+    
+            // Floating cursor effect
+            const floatingCursor = document.getElementById('floatingCursor');
+            document.addEventListener('mousemove', (e) => {
+                floatingCursor.style.left = e.clientX + 'px';
+                floatingCursor.style.top = e.clientY + 'px';
+            });
+    
+            document.addEventListener('mousedown', () => {
+                floatingCursor.classList.add('active');
+            });
+    
+            document.addEventListener('mouseup', () => {
+                floatingCursor.classList.remove('active');
+            });
+    
+            // Scroll progress indicator
+            window.addEventListener('scroll', () => {
+                const scrollProgress = document.getElementById('scrollProgress');
+                const scrollTop = document.documentElement.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const progress = (scrollTop / scrollHeight) * 100;
+                scrollProgress.style.width = progress + '%';
+            });
+    
+            // Category filtering
+            const categoryTags = document.querySelectorAll('.category-tag');
+            const poemCards = document.querySelectorAll('.poem-card');
+    
+            categoryTags.forEach(tag => {
+                tag.addEventListener('click', () => {
+                    categoryTags.forEach(t => t.classList.remove('active'));
+                    tag.classList.add('active');
+                    
+                    const category = tag.dataset.category;
+                    poemCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 50);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+    
+            // Like button functionality
+            const likeButtons = document.querySelectorAll('.like-btn');
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const span = this.querySelector('span');
+                    let likes = parseInt(span.textContent);
+                    
+                    if (this.classList.contains('liked')) {
+                        likes--;
+                        this.classList.remove('liked');
+                    } else {
+                        likes++;
+                        this.classList.add('liked');
+                    }
+                    
+                    span.textContent = likes;
+                });
+            });
+    
+            // Create ink drops periodically
+            setInterval(createInkDrop, 3000);
+        });
+    
+        function animateElements() {
+            const animatedElements = document.querySelectorAll('.poem-card, .search-bar, .categories');
+            animatedElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        }
+    
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.bottom = `-${size}px`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+    
+        function createInkDrop() {
+            const heroSection = document.querySelector('.hero');
+            const inkDrop = document.createElement('div');
+            inkDrop.classList.add('ink-drop');
+            
+            // Random properties
+            const size = Math.random() * 60 + 40;
+            const posX = Math.random() * 80 + 10;
+            const posY = Math.random() * 80 + 10;
+            const delay = Math.random() * 4;
+            
+            inkDrop.style.width = `${size}px`;
+            inkDrop.style.height = `${size}px`;
+            inkDrop.style.left = `${posX}%`;
+            inkDrop.style.top = `${posY}%`;
+            inkDrop.style.animationDelay = `${delay}s`;
+            
+            heroSection.appendChild(inkDrop);
+            
+            // Remove after animation completes
+            setTimeout(() => {
+                inkDrop.remove();
+            }, 8000);
+        }
+    
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+    
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+    
+        document.querySelectorAll('.poem-card, .footer-quote').forEach(el => {
+            observer.observe(el);
+        });
+        const shlokaCards = document.querySelectorAll('.shloka-card');
+        
+        function animateShlokaCards() {
+            shlokaCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) rotateX(0)';
+                }, index * 300);
+            });
+        }
+
+        // Initialize shloka cards as invisible
+        shlokaCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px) rotateX(15deg)';
+            card.style.transition = 'all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1)';
+        });
+
+        // Animate when page loads
+        window.addEventListener('load', () => {
+            setTimeout(animateShlokaCards, 500);
+        });
+
+        // Also animate when scrolling to them
+        const shlokaObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateShlokaCards();
+                }
+            });
+        }, { threshold: 0.1 });
+
+        shlokaObserver.observe(document.querySelector('.shloka-section'));
+    </script>
